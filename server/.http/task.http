@@ -1,0 +1,8 @@
+POST http://localhost:8000/tasks
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlNzJhOWIxLThjMTItNDIxNC05M2Q3LTU2YTg5OGRjMDhlMSIsImlhdCI6MTcxNDA4MDM3NSwiZXhwIjoxNzE0MTY2Nzc1fQ.EKLBzSuxFkw_a9OzY31M3fC69JZorOjNTqfGmlMYbmk
+
+{
+  "title": "Buy milk",
+  "description": "Buy milk from the store"
+}

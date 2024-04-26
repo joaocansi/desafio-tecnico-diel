@@ -1,0 +1,8 @@
+POST http://localhost:8000/users
+Content-Type: application/json
+
+{
+  "name": "João Guilherme da Silva Cansi",
+  "email": "joaocansii@gmail.com",
+  "password": "123456"
+}
