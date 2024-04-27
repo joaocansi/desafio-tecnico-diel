@@ -4,6 +4,8 @@ import Task from '../../../interfaces/models/task.domain';
 
 import * as Yup from 'yup';
 import { validateData } from '../../../infra/error/yup-error-handler';
+import ITagRepository from '../../../interfaces/repositories/tag-repository.domain';
+import ServerError from '../../../infra/error';
 
 type CreateTaskUsecaseInput = {
   title: string;
@@ -27,12 +29,21 @@ const CreateTaskUsecaseValidation = Yup.object().shape({
 export default class CreateTaskUsecase {
   constructor(
     @inject('TaskRepository') private taskRepository: ITaskRepository,
+    @inject('TagRepository') private tagRepository: ITagRepository,
   ) {}
 
   async execute(
     data: CreateTaskUsecaseInput,
   ): Promise<CreateTaskUsecaseOutput> {
     await validateData(data, CreateTaskUsecaseValidation);
+
+    const tags = await this.tagRepository.findByIds({
+      ids: data.tags,
+      author_id: data.author_id,
+    });
+
+    if (tags.length !== data.tags.length)
+      throw new ServerError('These tags do not belong to you', 403);
 
     const task = await this.taskRepository.create({
       author_id: data.author_id,

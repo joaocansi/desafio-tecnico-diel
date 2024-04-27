@@ -11,7 +11,7 @@ export default class AuthController {
 
     res.setHeader(
       'Set-Cookie',
-      `session=${token.access_token}; HttpOnly; Secure; SameSite=None;`,
+      `session=${token.access_token}; HttpOnly; Secure; SameSite=None; Domain=localhost; Path=/;`,
     );
     return res.status(201).json(token);
   }

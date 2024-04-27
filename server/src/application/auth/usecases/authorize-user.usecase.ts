@@ -5,6 +5,7 @@ import ITokenProvider from '../../../interfaces/utils/token-provider.domain';
 
 type AuthorizeUserUsecaseInput = {
   authorization?: string;
+  deleteToken: () => void;
 };
 
 type AuthorizeUserUsecaseOutput = {
@@ -22,13 +23,14 @@ export default class AuthorizeUserUsecase
   ): Promise<AuthorizeUserUsecaseOutput> {
     const token = input.authorization;
     if (!token || !token.startsWith('Bearer ')) {
-      throw new ServerError('Token not found', 404);
+      throw new ServerError('Token not found', 401);
     }
 
     const tokenValue = token.split('Bearer ')[1];
     const payload = this.tokenProvider.verifyToken(tokenValue);
 
     if (!payload) {
+      input.deleteToken();
       throw new ServerError('Unauthorized', 401);
     }
 
