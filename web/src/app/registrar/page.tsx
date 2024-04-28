@@ -8,7 +8,7 @@ import Link from 'next/link';
 
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import createUser from '@/api/usecases/create-user.usecase';
+import createUser from '@/server/usecases/create-user.usecase';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 

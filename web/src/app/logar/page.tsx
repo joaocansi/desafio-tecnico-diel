@@ -10,8 +10,8 @@ import Input from '@/components/input';
 import Logo from '@/components/logo';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
-import authenticateUser from '@/api/usecases/authenticate-user.usecase';
 import { useRouter } from 'next/navigation';
+import authenticateUser from '@/server/usecases/authenticate-user.usecase';
 
 Yup.setLocale(pt);
 
