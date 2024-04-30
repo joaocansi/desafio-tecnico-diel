@@ -7,51 +7,53 @@ import {
   DialogContentText,
 } from '@mui/material';
 import { useFormik } from 'formik';
+import { type Task, useAuth } from '@/hooks/use-auth';
 import dayjs, { type Dayjs } from 'dayjs';
-import { useAuth } from '@/hooks/use-auth';
 import Modal from '../modal';
 import Input from '../input';
 import DateCalendar from '../calendars/date-calendar';
 import Button from '../button';
 import ChipSelect from '../chip-select';
 import toast from 'react-hot-toast';
-import createTaskUsecase from '@/server/usecases/create-task.usecase';
 
 import * as Yup from 'yup';
+import editTaskUseCase from '@/server/usecases/edit-task.usecase';
 import messages from '@/utils/default-messages';
 
 type CreateTaskModalProps = {
+  task: Task;
   onClose: () => void;
 } & Omit<DialogProps, 'children'>;
 
 interface FormValues {
+  id: string;
   title: string;
   description: string;
   date: Dayjs;
   tags: string[];
 }
 
-const CreateTaskValidation = Yup.object().shape({
-  title: Yup.string().required(),
-  description: Yup.string().required(),
-  date: Yup.string().required(),
+const EditTaskValidation = Yup.object().shape({
+  title: Yup.string(),
+  description: Yup.string(),
+  date: Yup.string(),
   tags: Yup.array().of(Yup.string()).min(1).required(),
 });
 
-export default function CreateTaskModal(props: CreateTaskModalProps) {
-  const { tags, createTask } = useAuth();
+export default function EditTaskModal(props: CreateTaskModalProps) {
+  const { tags, updateTask } = useAuth();
   const tagsOptions = tags.reduce(
     (acc, tag) => ({ ...acc, [tag.id]: tag.name }),
     {},
   );
 
   const handleSubmit = (values: FormValues) => {
-    toast.promise(createTaskUsecase(values), {
+    toast.promise(editTaskUseCase(values), {
       loading: messages.loading,
       success: (task) => {
         props.onClose();
-        createTask(task);
-        return messages.objectCreated.replace('{0}', 'Tarefa');
+        updateTask(task);
+        return messages.objectUpdated.replace('{0}', 'Tarefa');
       },
       error: (error) => error.message,
     });
@@ -59,21 +61,22 @@ export default function CreateTaskModal(props: CreateTaskModalProps) {
 
   const formik = useFormik<FormValues>({
     initialValues: {
-      title: '',
-      description: '',
-      date: dayjs(),
-      tags: [],
+      id: props.task.id,
+      title: props.task.title,
+      description: props.task.description,
+      date: dayjs(props.task.date),
+      tags: props.task.tags.map((tag) => tag.id),
     },
     onSubmit: handleSubmit,
-    validationSchema: CreateTaskValidation,
+    validationSchema: EditTaskValidation,
   });
 
   return (
     <Modal {...props} maxWidth="sm" fullWidth>
-      <DialogTitle variant="h5">Criar tarefa</DialogTitle>
+      <DialogTitle variant="h5">Editar Tarefa</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Preencha os campos abaixo para criar uma nova tarefa.
+          Preencha os campos abaixo para inserir novos dados.
         </DialogContentText>
         <Box
           sx={{
@@ -117,8 +120,8 @@ export default function CreateTaskModal(props: CreateTaskModalProps) {
               </Button>
             </Grid>
             <Grid item sm={6}>
-              <Button type="submit" onClick={() => {}} color="success">
-                Criar
+              <Button type="submit" color="success">
+                Editar
               </Button>
             </Grid>
           </Grid>

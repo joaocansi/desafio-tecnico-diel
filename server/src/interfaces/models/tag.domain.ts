@@ -7,6 +7,6 @@ export default class Tag {
   tasks: Task[];
   author_id: string;
   author: User;
-  createdAt: Date;
-  updatedAt: Date;
+  created_at: Date;
+  updated_at: Date;
 }

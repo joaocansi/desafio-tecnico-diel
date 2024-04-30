@@ -7,6 +7,8 @@ import {
   Chip,
   Box,
   type SelectChangeEvent,
+  FormHelperText,
+  colors,
 } from '@mui/material';
 import { type FormikProps } from 'formik';
 
@@ -58,6 +60,7 @@ const ChipSelect = ({
         value={formik.values[name]}
         onChange={handleChange}
         sx={{ width: '100%' }}
+        error={formik.touched[name] && Boolean(formik.errors[name])}
         renderValue={(selected) => (
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
             {selected.map((key: string) => (
@@ -75,6 +78,9 @@ const ChipSelect = ({
           );
         })}
       </MuiSelect>
+      <FormHelperText sx={{ color: colors.red[600] }}>
+        {formik.touched[name] && <>{formik.errors[name]}</>}
+      </FormHelperText>
     </FormControl>
   );
 };

@@ -5,9 +5,11 @@ export default class Task {
   id: string;
   title: string;
   description: string;
-  authorId: string;
+  author_id: string;
+  is_completed: boolean;
   author: User;
+  date: Date;
   tags: Tag[];
-  createdAt: Date;
-  updatedAt: Date;
+  created_at: Date;
+  updated_at: Date;
 }

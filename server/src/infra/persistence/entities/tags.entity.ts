@@ -17,7 +17,9 @@ export default class TagEntity {
   id: string;
   @Column()
   name: string;
-  @ManyToMany(() => TaskEntity, (task) => task.tags)
+  @ManyToMany(() => TaskEntity, (task) => task.tags, {
+    onDelete: 'CASCADE',
+  })
   tasks: TaskEntity[];
   @Column()
   author_id: string;
@@ -25,7 +27,7 @@ export default class TagEntity {
   @JoinColumn({ name: 'author_id' })
   author: UserEntity;
   @CreateDateColumn()
-  createdAt: Date;
+  created_at: Date;
   @UpdateDateColumn()
-  updatedAt: Date;
+  updated_at: Date;
 }

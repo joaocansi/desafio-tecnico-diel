@@ -30,6 +30,7 @@ const DayCalendar = ({
           value={formik.values[name]}
           onChange={handleChange}
           sx={{ ...(fullWidth && { width: '100%' }), ...sx }}
+          reduceAnimations={true}
         />
       </DemoItem>
     </DemoContainer>

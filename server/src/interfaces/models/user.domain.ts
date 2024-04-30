@@ -6,6 +6,6 @@ export default class User {
   email: string;
   password: string;
   tags: Tag[];
-  createdAt: Date;
-  updatedAt: Date;
+  created_at: Date;
+  updated_at: Date;
 }

@@ -11,6 +11,7 @@ import { useFormik } from 'formik';
 import createUser from '@/server/usecases/create-user.usecase';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import messages from '@/utils/default-messages';
 
 interface FormValues {
   name: string;
@@ -43,7 +44,7 @@ export default function Home() {
   async function handleSubmit(values: FormValues) {
     toast.promise(createUser(values), {
       error: (err) => err.message,
-      loading: 'Carregando...',
+      loading: messages.loading,
       success: () => {
         router.push('/logar');
         return 'Conta criada com sucesso!';

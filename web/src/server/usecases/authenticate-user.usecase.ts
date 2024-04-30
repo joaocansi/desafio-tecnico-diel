@@ -1,4 +1,5 @@
 import api from '@/utils/axios';
+import messages from '@/utils/default-messages';
 import { AxiosError } from 'axios';
 
 interface AuthenticateUserData {
@@ -13,10 +14,8 @@ export default async function authenticateUser(data: AuthenticateUserData) {
   } catch (error) {
     if (error instanceof AxiosError && error.response) {
       if (error.response?.status === 401)
-        throw new Error('E-mail ou senha está incorreto.');
+        throw new Error(messages.emailOrPasswordIncorrect);
     }
-    throw new Error(
-      'Não foi possível concluir a requisição. Tente novamente mais tarde.',
-    );
+    throw new Error(messages.internalError);
   }
 }

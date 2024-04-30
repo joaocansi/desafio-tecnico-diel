@@ -1,7 +1,9 @@
 'use client';
 
 import { Grid } from '@mui/material';
-import { type FormikProps, useFormik } from 'formik';
+import { useFormik } from 'formik';
+import { useState } from 'react';
+import { useAuth } from '@/hooks/use-auth';
 import Button from '@/components/button';
 import ChipSelect from '@/components/chip-select';
 import MainContainer from '@/components/containers/main-container';
@@ -9,18 +11,16 @@ import Flex from '@/components/flex';
 import Input from '@/components/input';
 import Select from '@/components/select';
 import dayjs from 'dayjs';
-import DayCalendar from '@/components/calendars/day-calendar';
-import MonthCalendar from '@/components/calendars/month-calendar';
-import WeekCalendar from '@/components/calendars/week-calendar';
 import getAllTasks from '@/server/usecases/get-all-tasks.usecase';
+import toast from 'react-hot-toast';
+import utc from 'dayjs/plugin/utc';
+import CreateTaskModal from '../modals/create-task-modal';
 
 import * as Yup from 'yup';
-import toast from 'react-hot-toast';
-
-import utc from 'dayjs/plugin/utc';
-import { useEffect, useState } from 'react';
-import { useAuth } from '@/hooks/use-auth';
-import CreateTaskModal from '../modals/create-task-modal';
+import TasksAccordion from '../accordions/tasks-accordions';
+import messages from '@/utils/default-messages';
+import CustomizeTagsModal from '../modals/customize-tags-modal';
+import Calendar from '../calendars/calendar';
 dayjs.extend(utc);
 
 interface FormValues {
@@ -31,7 +31,7 @@ interface FormValues {
 }
 
 const timeOptions = {
-  '': '-',
+  '*': 'Sem filtro',
   day: 'Por dia',
   week: 'Por semana',
   month: 'Por mês',
@@ -46,8 +46,9 @@ const FilterValidation = Yup.object().shape({
 
 export default function Page() {
   const [createTaskModalOpen, setCreateTaskModalOpen] = useState(false);
+  const [customizeTagsModalOpen, setCustomizeTagsModalOpen] = useState(false);
 
-  const { tags } = useAuth();
+  const { tags, setTasks } = useAuth();
   const formik = useFormik<FormValues>({
     initialValues: {
       title: '',
@@ -57,26 +58,24 @@ export default function Page() {
     },
     onSubmit: handleSubmit,
     validationSchema: FilterValidation,
+    validateOnChange: false,
+    validateOnBlur: false,
   });
-
-  useEffect(() => {
-    console.log(formik.values.date.toDate());
-  }, [formik.values.date]);
 
   async function handleSubmit(values: FormValues) {
     toast.promise(getAllTasks(values), {
       error: (err) => err.message,
-      loading: 'Filtrando...',
-      success: () => {
+      loading: messages.loading,
+      success: (data) => {
+        setTasks(data);
         return 'Dados filtrados com sucesso!';
       },
     });
-    await getAllTasks(formik.values);
   }
 
   return (
     <MainContainer>
-      <Grid container>
+      <Grid container spacing={2}>
         <Grid
           item
           xs={12}
@@ -86,14 +85,28 @@ export default function Page() {
         >
           <Grid container component={Flex} alignItems="center" spacing={1}>
             <Grid item xs={12} md={6} lg={12}>
-              <Button
-                color="success"
-                onClick={() => {
-                  setCreateTaskModalOpen(true);
-                }}
-              >
-                Criar tarefa
-              </Button>
+              <Grid container spacing={1}>
+                <Grid item xs={6}>
+                  <Button
+                    color="success"
+                    onClick={() => {
+                      setCreateTaskModalOpen(true);
+                    }}
+                  >
+                    Criar tarefa
+                  </Button>
+                </Grid>
+                <Grid item xs={6}>
+                  <Button
+                    color="warning"
+                    onClick={() => {
+                      setCustomizeTagsModalOpen(true);
+                    }}
+                  >
+                    Customizar Tags
+                  </Button>
+                </Grid>
+              </Grid>
             </Grid>
             <Grid item xs={12} md={6} lg={12}>
               <Button type="submit">Filtrar</Button>
@@ -108,7 +121,10 @@ export default function Page() {
                     name="tags"
                     formik={formik}
                     label="Selecione as tags"
-                    options={tags}
+                    options={tags.reduce(
+                      (acc, tag) => ({ ...acc, [tag.id]: tag.name }),
+                      {},
+                    )}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6} lg={12}>
@@ -134,6 +150,7 @@ export default function Page() {
             </Grid>
           </Grid>
         </Grid>
+        <TasksAccordion />
       </Grid>
       <CreateTaskModal
         open={createTaskModalOpen}
@@ -141,39 +158,12 @@ export default function Page() {
           setCreateTaskModalOpen(false);
         }}
       />
+      <CustomizeTagsModal
+        onClose={() => {
+          setCustomizeTagsModalOpen(false);
+        }}
+        open={customizeTagsModalOpen}
+      />
     </MainContainer>
   );
 }
-
-const Calendar = ({ formik }: { formik: FormikProps<any> }) => {
-  if (formik.values.date_type === '') return <></>;
-  if (formik.values.date_type === 'month')
-    return (
-      <MonthCalendar
-        name="date"
-        label="Selecione o mês da tarefa"
-        maxDate={dayjs().year(2022).month(11)}
-        minDate={dayjs().year(2000).month(0)}
-        fullWidth
-        formik={formik}
-      />
-    );
-  if (formik.values.date_type === 'day')
-    return (
-      <DayCalendar
-        name="date"
-        label="Seleciona o dia da tarefa"
-        fullWidth
-        formik={formik}
-      />
-    );
-  if (formik.values.date_type === 'week')
-    return (
-      <WeekCalendar
-        name="date"
-        label="Seleciona a semana da tarefa"
-        fullWidth
-        formik={formik}
-      />
-    );
-};

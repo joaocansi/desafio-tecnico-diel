@@ -1,21 +1,16 @@
+import { type Tag } from '@/hooks/use-auth';
 import api from '@/utils/axios';
 import messages from '@/utils/default-messages';
 import { AxiosError } from 'axios';
 
-interface CreateUserData {
-  name: string;
-  email: string;
-  password: string;
-}
-
-export default async function createUser(data: CreateUserData) {
+export default async function deleteTag(id: string): Promise<Tag> {
   try {
-    const res = await api.post('/users', data);
-    return res;
+    const response = await api.delete(`/tags/${id}`);
+    return response.data;
   } catch (error) {
     if (error instanceof AxiosError && error.response) {
-      if (error.response?.status === 409)
-        throw new Error(messages.emailAlreadyInUse);
+      if (error.response?.status === 404)
+        throw new Error(messages.objectNotFound.replace('{0}', 'Tag'));
       if (error.response?.status === 401)
         throw new Error(messages.unauthorized);
     }

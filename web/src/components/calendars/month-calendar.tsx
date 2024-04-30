@@ -45,6 +45,7 @@ const MonthCalendar = ({
               },
             }),
           }}
+          reduceAnimations={true}
         />
       </DemoItem>
     </DemoContainer>

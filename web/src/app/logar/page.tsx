@@ -1,49 +1,31 @@
 'use client';
 
-import { Box } from '@mui/material';
-import { useFormik } from 'formik';
+import { Box, TextField } from '@mui/material';
 import { pt } from 'yup-locale-pt';
-import * as Yup from 'yup';
 
 import Button from '@/components/button';
-import Input from '@/components/input';
 import Logo from '@/components/logo';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import authenticateUser from '@/server/usecases/authenticate-user.usecase';
+import messages from '@/utils/default-messages';
+
+import React, { useState } from 'react';
+import * as Yup from 'yup';
 
 Yup.setLocale(pt);
 
-interface FormValues {
-  email: string;
-  password: string;
-}
-
-const initialValues = {
-  email: '',
-  password: '',
-};
-
-const SignInValidation = Yup.object().shape({
-  email: Yup.string().email().required(),
-  password: Yup.string().min(6).required(),
-});
-
 export default function Home() {
   const router = useRouter();
-  const formik = useFormik({
-    initialValues,
-    onSubmit: handleSubmit,
-    validationSchema: SignInValidation,
-    validateOnChange: false,
-    validateOnBlur: false,
-  });
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  async function handleSubmit(values: FormValues) {
-    toast.promise(authenticateUser(values), {
+  async function handleSubmit(e: any) {
+    e.preventDefault();
+    toast.promise(authenticateUser({ email, password }), {
       error: (err) => err.message,
-      loading: 'Carregando...',
+      loading: messages.loading,
       success: () => {
         router.push('/');
         return 'Logado com sucesso!';
@@ -63,7 +45,7 @@ export default function Home() {
     >
       <Logo />
       <Box
-        onSubmit={formik.handleSubmit}
+        onSubmit={handleSubmit}
         component="form"
         sx={{
           width: '90%',
@@ -74,12 +56,22 @@ export default function Home() {
           gap: 1,
         }}
       >
-        <Input name="email" label="Digite seu e-mail" formik={formik} />
-        <Input
+        <TextField
+          name="email"
+          label="Digite seu e-mail"
+          value={email}
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
+        />
+        <TextField
           name="password"
           label="Digite sua senha"
           type="password"
-          formik={formik}
+          value={password}
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
         />
         <Button type="submit">Entrar</Button>
         <Link href="/registrar">

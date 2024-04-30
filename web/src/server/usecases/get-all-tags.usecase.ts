@@ -1,4 +1,5 @@
 import api from '@/utils/axios';
+import messages from '@/utils/default-messages';
 import { AxiosError } from 'axios';
 
 export interface Tag {
@@ -13,10 +14,8 @@ export default async function getAllTags(): Promise<Tag[]> {
   } catch (error) {
     if (error instanceof AxiosError && error.response) {
       if (error.response?.status === 401)
-        throw new Error('Você não tem permissão para acessar esses dados.');
+        throw new Error(messages.unauthorized);
     }
-    throw new Error(
-      'Não foi possível concluir a requisição. Tente novamente mais tarde.',
-    );
+    throw new Error(messages.internalError);
   }
 }

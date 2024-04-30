@@ -20,12 +20,10 @@ export default class TaskEntity {
   title: string;
   @Column()
   description: string;
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'timestamp with time zone' })
   date: Date;
   @Column({ default: false })
-  isCompleted: boolean;
-  @Column({ type: 'timestamp', nullable: true })
-  completedAt: Date;
+  is_completed: boolean;
   @Column()
   author_id: string;
   @ManyToOne(() => UserEntity, (user) => user.tasks)
@@ -35,7 +33,7 @@ export default class TaskEntity {
   @JoinTable()
   tags: TagsEntity[];
   @CreateDateColumn()
-  createdAt: Date;
+  created_at: Date;
   @UpdateDateColumn()
-  updatedAt: Date;
+  updated_at: Date;
 }

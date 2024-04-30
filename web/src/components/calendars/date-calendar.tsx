@@ -35,6 +35,7 @@ export default function DateCalendar({
           ...sx,
           ...(fullWidth && { width: '100%' }),
         }}
+        reduceAnimations={true}
       />
     </DemoContainer>
   );
