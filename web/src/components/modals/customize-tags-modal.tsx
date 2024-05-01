@@ -8,7 +8,7 @@ import {
 import { useAuth } from '@/hooks/use-auth';
 import { MuiChipsInput, type MuiChipsInputChip } from 'mui-chips-input';
 import { useEffect, useState } from 'react';
-import FaceIcon from '@mui/icons-material/Face';
+import CloseIcon from '@mui/icons-material/Close';
 import Modal, { type ModalChildrenProps } from '../modal';
 import toast from 'react-hot-toast';
 import editTagUsecase from '@/server/usecases/edit-tag.usecase';
@@ -145,7 +145,7 @@ export default function CustomizeTagsModal(props: ModalChildrenProps) {
             }}
             renderChip={(Component, key, props) => {
               return (
-                <Component {...props} key={key} deleteIcon={<FaceIcon />} />
+                <Component {...props} key={key} deleteIcon={<CloseIcon />} />
               );
             }}
           />

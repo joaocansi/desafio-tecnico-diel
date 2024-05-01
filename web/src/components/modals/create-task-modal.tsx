@@ -20,6 +20,9 @@ import createTaskUsecase from '@/server/usecases/create-task.usecase';
 import * as Yup from 'yup';
 import messages from '@/utils/default-messages';
 
+import d from 'dayjs/plugin/duration';
+dayjs.extend(d);
+
 type CreateTaskModalProps = {
   onClose: () => void;
 } & Omit<DialogProps, 'children'>;
@@ -117,7 +120,7 @@ export default function CreateTaskModal(props: CreateTaskModalProps) {
               </Button>
             </Grid>
             <Grid item sm={6}>
-              <Button type="submit" onClick={() => {}} color="success">
+              <Button type="submit" color="success">
                 Criar
               </Button>
             </Grid>

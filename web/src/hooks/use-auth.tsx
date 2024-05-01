@@ -1,11 +1,13 @@
 'use client';
 import getAllTags from '@/server/usecases/get-all-tags.usecase';
+import getAllTasks from '@/server/usecases/get-all-tasks.usecase';
 import api from '@/utils/axios';
 import React, {
   createContext,
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from 'react';
 
@@ -51,6 +53,9 @@ const AuthProvider = ({ accessToken, children }: AuthProviderProps) => {
     api.defaults.headers.Authorization = `Bearer ${accessToken}`;
     getAllTags().then((res) => {
       setTags(res);
+    });
+    getAllTasks({}).then((res) => {
+      setTasks(res);
     });
   }, []);
 
@@ -108,24 +113,23 @@ const AuthProvider = ({ accessToken, children }: AuthProviderProps) => {
     [tasks],
   );
 
-  return (
-    <AuthContext.Provider
-      value={{
-        accessToken,
-        tags,
-        tasks,
-        setTasks,
-        updateTag,
-        createTag,
-        deleteTag,
-        updateTask,
-        createTask,
-        deleteTask,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
+  const value = useMemo(
+    () => ({
+      accessToken,
+      tags,
+      tasks,
+      setTasks,
+      updateTag,
+      createTag,
+      deleteTag,
+      updateTask,
+      createTask,
+      deleteTask,
+    }),
+    [tags, tasks],
   );
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 export default AuthProvider;

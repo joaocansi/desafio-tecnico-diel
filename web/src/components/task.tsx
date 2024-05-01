@@ -5,7 +5,7 @@ import { useAuth, type Task as ITask } from '@/hooks/use-auth';
 import toast from 'react-hot-toast';
 import deleteTaskUsecase from '@/server/usecases/delete-task.usecase';
 import EditTaskModal from './modals/edit-task-modal';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import messages from '@/utils/default-messages';
 import markTaskAsCompletedUsecase from '@/server/usecases/mark-task-as-completed.usecase';
 import markTaskAsUncompletedUsecase from '@/server/usecases/mark-task-as-uncompleted.usecase';
@@ -19,7 +19,7 @@ const Task = ({ data, index }: TaskProps) => {
   const [editTaskModal, setEditTaskModal] = useState(false);
   const { updateTask, deleteTask } = useAuth();
 
-  const handleComplete = () => {
+  const handleComplete = useCallback(() => {
     toast.promise(markTaskAsCompletedUsecase(data.id), {
       loading: messages.loading,
       success: () => {
@@ -31,9 +31,9 @@ const Task = ({ data, index }: TaskProps) => {
       },
       error: (err) => err.message,
     });
-  };
+  }, [data, updateTask]);
 
-  const handleUncomplete = () => {
+  const handleUncomplete = useCallback(() => {
     toast.promise(markTaskAsUncompletedUsecase(data.id), {
       loading: messages.loading,
       success: () => {
@@ -45,9 +45,9 @@ const Task = ({ data, index }: TaskProps) => {
       },
       error: (err) => err.message,
     });
-  };
+  }, [data, updateTask]);
 
-  const handleDelete = () => {
+  const handleDelete = useCallback(() => {
     toast.promise(deleteTaskUsecase(data.id), {
       loading: messages.loading,
       success: () => {
@@ -56,7 +56,7 @@ const Task = ({ data, index }: TaskProps) => {
       },
       error: (err) => err.message,
     });
-  };
+  }, [data, deleteTask]);
 
   return (
     <Box

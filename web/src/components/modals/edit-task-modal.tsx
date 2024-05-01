@@ -64,7 +64,7 @@ export default function EditTaskModal(props: CreateTaskModalProps) {
       id: props.task.id,
       title: props.task.title,
       description: props.task.description,
-      date: dayjs(props.task.date),
+      date: dayjs(props.task.date).utc(),
       tags: props.task.tags.map((tag) => tag.id),
     },
     onSubmit: handleSubmit,

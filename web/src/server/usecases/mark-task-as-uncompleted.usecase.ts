@@ -4,7 +4,7 @@ import { AxiosError } from 'axios';
 
 export default async function markTaskAsUncompletedUsecase(id: string) {
   try {
-    const response = await api.put(`/tasks/${id}`, {
+    const response = await api.patch(`/tasks/${id}`, {
       is_completed: false,
     });
     return response.data;
