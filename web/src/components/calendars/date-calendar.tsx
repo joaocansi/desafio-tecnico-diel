@@ -19,8 +19,6 @@ export default function DateCalendar({
   ...props
 }: DayCalendarProps) {
   const handleChange = async (date: Dayjs | null) => {
-    console.log(formik.errors);
-
     formik.setFieldValue('date', date);
   };
 
