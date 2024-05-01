@@ -35,7 +35,7 @@ export default class TaskController {
 
   async update(req: Request, res: Response) {
     const { id } = req.params;
-    const { title, description, is_completed, tags, date } = req.body;
+    const { title, description, tags, date, is_completed } = req.body;
     const updateTaskUsecase = container.resolve(UpdateTaskUsecase);
     const task = await updateTaskUsecase.execute({
       id,
@@ -43,6 +43,17 @@ export default class TaskController {
       description,
       tags,
       date,
+      author_id: req.user.id,
+    });
+    return res.json(task);
+  }
+
+  async updateTaskCompletion(req: Request, res: Response) {
+    const { id } = req.params;
+    const { is_completed } = req.body;
+    const updateTaskUsecase = container.resolve(UpdateTaskUsecase);
+    const task = await updateTaskUsecase.execute({
+      id,
       is_completed,
       author_id: req.user.id,
     });

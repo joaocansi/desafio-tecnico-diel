@@ -6,8 +6,8 @@ export default class Task {
   title: string;
   description: string;
   author_id: string;
-  is_completed: boolean;
   author: User;
+  duration: string;
   date: Date;
   tags: Tag[];
   created_at: Date;

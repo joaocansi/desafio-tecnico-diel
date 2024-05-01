@@ -31,6 +31,7 @@ export default function DatePicker({
       label={label}
       onChange={handleChange}
       value={formik.values[name]}
+      format="DD/MM/YYYY"
       sx={{
         ...sx,
         ...(fullWidth && { width: '100%' }),

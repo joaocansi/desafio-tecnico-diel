@@ -10,5 +10,6 @@ taskRouter.post('/', taskController.create);
 taskRouter.get('/', taskController.getAll);
 taskRouter.delete('/:id', taskController.delete);
 taskRouter.put('/:id', taskController.update);
+taskRouter.patch('/:id', taskController.updateTaskCompletion);
 
 export default taskRouter;

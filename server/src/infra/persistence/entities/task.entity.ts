@@ -12,7 +12,11 @@ import {
 import TagsEntity from './tags.entity';
 import UserEntity from './user.entity';
 
-@Entity('tasks')
+@Entity('tasks', {
+  orderBy: {
+    date: 'ASC',
+  },
+})
 export default class TaskEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;

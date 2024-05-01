@@ -26,6 +26,7 @@ const UpdateTaskUsecaseValidation = Yup.object().shape({
   author_id: Yup.string().uuid().required(),
   title: Yup.string(),
   description: Yup.string(),
+  is_completed: Yup.boolean(),
   tags: Yup.array().of(Yup.string()),
   date: Yup.string().matches(/[0-9]{4}-[0-9]{2}-[0-9]{2}/),
 });
@@ -69,6 +70,8 @@ export default class UpdateTaskUsecase
       ...data,
       tags: tags.length > 0 ? tags : undefined,
     });
+
+    console.log(updatedTask);
 
     return updatedTask;
   }
