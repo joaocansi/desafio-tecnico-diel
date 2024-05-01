@@ -29,9 +29,9 @@ const timeOptions = {
 
 const FilterValidation = Yup.object().shape({
   title: Yup.string(),
-  date_type: Yup.string(),
-  date: Yup.date(),
-  tags: Yup.array().of(Yup.string()).required(),
+  tags: Yup.array().of(Yup.string()),
+  date_type: Yup.string().equals(['month', 'week', 'day']),
+  date: Yup.string().matches(/[0-9]{4}-[0-9]{2}-[0-9]{2}/),
 });
 
 export default function Filters() {

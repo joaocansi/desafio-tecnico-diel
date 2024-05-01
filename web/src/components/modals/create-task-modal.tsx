@@ -37,8 +37,8 @@ interface FormValues {
 const CreateTaskValidation = Yup.object().shape({
   title: Yup.string().required(),
   description: Yup.string().required(),
-  date: Yup.string().required(),
-  tags: Yup.array().of(Yup.string()).min(1).required(),
+  tags: Yup.array().of(Yup.string().uuid()).required(),
+  date: Yup.string().matches(/[0-9]{4}-[0-9]{2}-[0-9]{2}/),
 });
 
 export default function CreateTaskModal(props: CreateTaskModalProps) {

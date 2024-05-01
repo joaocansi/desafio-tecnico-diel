@@ -3,7 +3,7 @@ import AuthProvider from '@/hooks/use-auth';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import React, { type ComponentType } from 'react';
-import Redirect from '../redirect';
+import { RedirectWithAction } from '../redirect';
 
 import jwt from 'jsonwebtoken';
 import { deleteCookie } from '@/action/delete-cookie';
@@ -16,7 +16,7 @@ function withAuth<T extends any>(WrappedComponent: ComponentType<T>) {
     try {
       jwt.verify(accessToken.value, process.env.JWT_SECRET as jwt.Secret);
     } catch (error) {
-      return <Redirect href="/logar" action={deleteCookie} />;
+      return <RedirectWithAction href="/logar" action={deleteCookie} />;
     }
 
     return (

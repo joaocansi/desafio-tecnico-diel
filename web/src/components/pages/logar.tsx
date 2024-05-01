@@ -8,27 +8,24 @@ import Link from 'next/link';
 
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import createUser from '@/server/usecases/create-user.usecase';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import messages from '@/utils/default-messages';
+import authenticateUser from '@/server/usecases/authenticate-user.usecase';
 
 interface FormValues {
-  name: string;
   email: string;
   password: string;
 }
 
 const initialValues = {
-  name: '',
   email: '',
   password: '',
 };
 
 const SignUpValidation = Yup.object().shape({
-  name: Yup.string().required(),
   email: Yup.string().email().required(),
-  password: Yup.string().min(6).required(),
+  password: Yup.string().min(4).max(24).required(),
 });
 
 export default function Logar() {
@@ -42,12 +39,12 @@ export default function Logar() {
   });
 
   async function handleSubmit(values: FormValues) {
-    toast.promise(createUser(values), {
+    toast.promise(authenticateUser(values), {
       error: (err) => err.message,
       loading: messages.loading,
       success: () => {
-        router.push('/logar');
-        return 'Conta criada com sucesso!';
+        router.push('/');
+        return 'Conta autênticada com sucesso!';
       },
     });
   }
@@ -74,7 +71,6 @@ export default function Logar() {
           gap: 1,
         }}
       >
-        <Input name="name" label="Digite seu nome" formik={formik} />
         <Input name="email" label="Digite seu e-mail" formik={formik} />
         <Input
           name="password"
@@ -82,10 +78,10 @@ export default function Logar() {
           type="password"
           formik={formik}
         />
-        <Button type="submit">Criar conta</Button>
-        <Link href="/logar">
+        <Button type="submit">Logar</Button>
+        <Link href="/registrar">
           <Button sx={{ width: '100%' }} variant="outlined" color="success">
-            Entrar
+            Criar Conta
           </Button>
         </Link>
       </Box>

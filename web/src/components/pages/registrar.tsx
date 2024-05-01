@@ -26,9 +26,9 @@ const initialValues = {
 };
 
 const SignUpValidation = Yup.object().shape({
-  name: Yup.string().required(),
+  name: Yup.string().min(3).required(),
   email: Yup.string().email().required(),
-  password: Yup.string().min(6).required(),
+  password: Yup.string().min(4).max(24).required(),
 });
 
 export default function Registrar() {

@@ -8,7 +8,14 @@ interface RedirectProps {
   action: (data: any) => Promise<void>;
 }
 
-const Redirect = ({ href, action }: RedirectProps) => {
+export const Redirect = ({ href }: Omit<RedirectProps, 'action'>) => {
+  useEffect(() => {
+    redirect(href);
+  }, []);
+  return null;
+};
+
+export const RedirectWithAction = ({ href, action }: RedirectProps) => {
   const deleteTokensRef = useRef(action);
 
   useEffect(() => {
@@ -22,5 +29,3 @@ const Redirect = ({ href, action }: RedirectProps) => {
 
   return null;
 };
-
-export default Redirect;
