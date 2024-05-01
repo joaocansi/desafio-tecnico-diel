@@ -31,7 +31,7 @@ const FilterValidation = Yup.object().shape({
   title: Yup.string(),
   tags: Yup.array().of(Yup.string()),
   date_type: Yup.string().equals(['month', 'week', 'day']),
-  date: Yup.string().matches(/[0-9]{4}-[0-9]{2}-[0-9]{2}/),
+  date: Yup.string(),
 });
 
 export default function Filters() {

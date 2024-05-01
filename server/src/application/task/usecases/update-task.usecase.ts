@@ -71,8 +71,6 @@ export default class UpdateTaskUsecase
       tags: tags.length > 0 ? tags : undefined,
     });
 
-    console.log(updatedTask);
-
     return updatedTask;
   }
 }

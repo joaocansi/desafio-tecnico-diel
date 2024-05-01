@@ -10,8 +10,6 @@ export default class TagsController {
     const { name } = req.body;
     const user_id = req.user.id;
 
-    console.log(user_id);
-
     const createTagUsecase = container.resolve(CreateTagUsecase);
     const tag = await createTagUsecase.execute({ name, author_id: user_id });
 
