@@ -6,7 +6,7 @@
 
 <p align="center">
  <a href="#-o-que-foi-implementado">⚙️ O que foi implementado</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
- <a href="#-o-que-pode-ser-melhorado">🛠️ O que pode ser melhorado</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+ <a href="#-o-que-melhorar">🛠️ O que melhorar</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
  <a href="#-como-foi-desenvolver">✨ Como foi desenvolver</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
  <a href="#-como-rodar">💻 Como rodar</a>
 </p> 
@@ -21,7 +21,7 @@ Meu foco principal neste desáfio foi implementar uma arquitetura limpa, utiliza
 
 Optei por não implementar a 'duração', pois no formato que fiz, não faria tanto sentido haver um atributo do tipo. Além disso, não implementei o gráficos, pois foi difícil conciliar universidade e estágio (atual), porém da forma que implementei as entidades, essa feature é relativamente fácil para implementar. Pretendo realizar em breve. 
 
-## 🛠️ O que pode ser melhorado
+## 🛠️ O que melhorar
 
 - Implementar todos os requisitos funcionais do desafio.
 - Implementar load-balancer através do Nginx.
