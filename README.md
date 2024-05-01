@@ -23,12 +23,13 @@ Optei por não implementar a 'duração', pois no formato que fiz, não faria ta
 
 ## 🛠️ O que pode ser melhorado
 
-- Implementar todos os requisitos funcionais do desáfio.
-- Implementar load-balacer através do Nginx.
+- Implementar todos os requisitos funcionais do desafio.
+- Implementar load-balancer através do Nginx.
 - Encapsular os serviços em uma imagem docker.
 - Adicionar listagem virtualizada ou com paginação das tarefas.
 - Criar um hook personalizado apenas para os dados que serão servidos ao invés de misturar com os dados de autênticação.
 - Utilizar novos recursos do framework utilizado (server components e etc.)
+- Melhorar a manipulação de datas
 
 ## ✨ Como foi desenvolver?
 
