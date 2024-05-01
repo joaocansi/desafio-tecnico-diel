@@ -6,6 +6,7 @@
 
 <p align="center">
  <a href="#-o-que-foi-implementado">⚙️ O que foi implementado</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+ <a href="$-o-que-pode-ser-melhorado">🛠️ O que pode ser melhorado</a> 
  <a href="#-como-foi-desenvolver">✨ Como foi desenvolver</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
  <a href="#-como-rodar">💻 Como rodar</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 </p> 
@@ -19,6 +20,15 @@ Meu foco principal neste desáfio foi implementar uma arquitetura limpa, utiliza
 - Usuário: criação e autênticação
 
 Optei por não implementar a 'duração', pois no formato que fiz, não faria tanto sentido haver um atributo do tipo. Além disso, não implementei o gráficos, pois foi difícil conciliar universidade e estágio (atual), porém da forma que implementei as entidades, essa feature é relativamente fácil para implementar. Pretendo realizar em breve. 
+
+## 🛠️ O que pode ser melhorado
+
+- Implementar todos os requisitos funcionais do desáfio.
+- Implementar load-balacer através do Nginx.
+- Encapsular os serviços em uma imagem docker.
+- Adicionar listagem virtualizada ou com paginação das tarefas.
+- Criar um hook personalizado apenas para os dados que serão servidos ao invés de misturar com os dados de autênticação.
+- Utilizar novos recursos do framework utilizado (server components e etc.)
 
 ## ✨ Como foi desenvolver?
 
