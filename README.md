@@ -6,9 +6,9 @@
 
 <p align="center">
  <a href="#-o-que-foi-implementado">⚙️ O que foi implementado</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
- <a href="$-o-que-pode-ser-melhorado">🛠️ O que pode ser melhorado</a> 
+ <a href="$-o-que-pode-ser-melhorado">🛠️ O que pode ser melhorado</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
  <a href="#-como-foi-desenvolver">✨ Como foi desenvolver</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
- <a href="#-como-rodar">💻 Como rodar</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+ <a href="#-como-rodar">💻 Como rodar</a>
 </p> 
 
 Meu foco principal neste desáfio foi implementar uma arquitetura limpa, utilizando conceitos de injeção de dependências, camadas de domínio, casos de uso e etc, utilizando uma abordagem que melhor se identifica com o desáfio proposto. No que tante a escalabilidade, não foi implementado features que fornaçam grande diferença na performance, porém no back-end poderiamos utilizar um servidor de proxy como o Nginx (que estou aprendendo atualmente).
