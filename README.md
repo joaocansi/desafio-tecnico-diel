@@ -45,9 +45,11 @@ Além disso, foi um espaço importante para relembrar conceitos que havia estuda
 - Entre na pasta do projeto
 - Inicie o servidor:
   - Entre na pasta **server**
+  - Instale as dependências com `yarn` ou `npm install` 
   - Inicie o banco de dados com `docker-compose up`
   - Rode o comando `yarn dev` ou `npm run dev`
 - Inicie o site:
   - Entre na pasta **web**
+  - Instale as dependências com `yarn` ou `npm install` 
   - Rode o comando `yarn dev`
 - Acesso o site ([http://localhost:3000](http://localhost:3000/logar))
