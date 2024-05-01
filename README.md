@@ -1,7 +1,7 @@
 # Desáfio Técnico Diel
 
 <p align="center">
- <img src=".github/assets.png" width="850px" />
+ <img src=".github/assets.png" width="750px" />
 </p>
 
 <p align="center">
