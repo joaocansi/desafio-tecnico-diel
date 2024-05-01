@@ -12,12 +12,11 @@ interface CreateTaskInput {
 }
 
 export default async function createTask(data: CreateTaskInput) {
-  const date = data.date.format('YYYY-MM-DD');
   try {
     const res = await api.post('/tasks', {
       title: data.title,
       description: data.description,
-      date,
+      date: data.date.format('YYYY-MM-DD'),
       tags: data.tags,
     });
     return res.data as Task;

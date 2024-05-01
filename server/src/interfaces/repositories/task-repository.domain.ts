@@ -26,7 +26,7 @@ export type UpdateTaskData = {
   tags?: {
     id: string;
   }[];
-  date?: string;
+  date?: Date;
 };
 
 export type DeleteTaskData = {

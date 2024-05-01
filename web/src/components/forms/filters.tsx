@@ -30,7 +30,7 @@ const timeOptions = {
 const FilterValidation = Yup.object().shape({
   title: Yup.string(),
   tags: Yup.array().of(Yup.string()),
-  date_type: Yup.string().equals(['month', 'week', 'day']),
+  date_type: Yup.string().equals(['month', 'week', 'day', '*']),
   date: Yup.string(),
 });
 

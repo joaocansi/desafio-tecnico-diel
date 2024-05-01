@@ -52,7 +52,10 @@ export default function EditTaskModal(props: CreateTaskModalProps) {
       loading: messages.loading,
       success: (task) => {
         props.onClose();
-        updateTask(task);
+        updateTask({
+          ...task,
+          is_completed: props.task.is_completed,
+        });
         return messages.objectUpdated.replace('{0}', 'Tarefa');
       },
       error: (error) => error.message,

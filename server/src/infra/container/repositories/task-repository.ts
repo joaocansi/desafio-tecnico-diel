@@ -11,6 +11,7 @@ import ITaskRepository, {
 import { database } from '../../persistence';
 import TaskEntity from '../../persistence/entities/task.entity';
 import { Between, Equal, ILike, In } from 'typeorm';
+import dayjs from 'dayjs';
 
 export default class TaskRepository implements ITaskRepository {
   async findById(data: FindByIdData): Promise<Task | undefined> {
@@ -83,8 +84,10 @@ const createGetAllQuery = (filters: GetAllFilter) => {
   }
 
   if (filters.date_type === 'month') {
-    const minDate = new Date(date.getFullYear(), date.getMonth(), 1);
-    const maxDate = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    const dateAsDayjs = dayjs(filters.date);
+    const minDate = new Date(dateAsDayjs.year(), dateAsDayjs.month(), 1);
+    const maxDate = new Date(dateAsDayjs.year(), dateAsDayjs.month() + 1, 0);
+
     where.date = Between(minDate, maxDate);
   }
 

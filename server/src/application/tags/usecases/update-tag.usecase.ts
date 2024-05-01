@@ -17,7 +17,7 @@ type UpdateTagUsecaseOutput = Tag;
 
 const UpdateTagUsecaseValidation = Yup.object().shape({
   id: Yup.string().uuid().required(),
-  name: Yup.string().required(),
+  name: Yup.string().max(48).required(),
   author_id: Yup.string().uuid().required(),
 });
 

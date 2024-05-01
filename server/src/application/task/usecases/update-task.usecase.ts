@@ -68,6 +68,7 @@ export default class UpdateTaskUsecase
 
     const updatedTask = await this.taskRepository.update({
       ...data,
+      date: data.date ? new Date(data.date) : undefined,
       tags: tags.length > 0 ? tags : undefined,
     });
 

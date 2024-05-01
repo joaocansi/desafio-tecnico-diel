@@ -49,22 +49,28 @@ export default function CreateTaskModal(props: CreateTaskModalProps) {
   );
 
   const handleSubmit = (values: FormValues) => {
-    toast.promise(createTaskUsecase(values), {
-      loading: messages.loading,
-      success: (task) => {
-        props.onClose();
-        createTask(task);
-        return messages.objectCreated.replace('{0}', 'Tarefa');
+    toast.promise(
+      createTaskUsecase({
+        ...values,
+        date: values.date.local(),
+      }),
+      {
+        loading: messages.loading,
+        success: (task) => {
+          props.onClose();
+          createTask(task);
+          return messages.objectCreated.replace('{0}', 'Tarefa');
+        },
+        error: (error) => error.message,
       },
-      error: (error) => error.message,
-    });
+    );
   };
 
   const formik = useFormik<FormValues>({
     initialValues: {
       title: '',
       description: '',
-      date: dayjs(),
+      date: dayjs().utc(),
       tags: [],
     },
     onSubmit: handleSubmit,

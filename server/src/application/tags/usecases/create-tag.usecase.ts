@@ -15,7 +15,7 @@ type CreateTagUsecaseInput = {
 type CreateTagUsecaseOutput = Tag;
 
 const CreateTagUsecaseValidation = Yup.object().shape({
-  name: Yup.string().required(),
+  name: Yup.string().max(48).required(),
   author_id: Yup.string().uuid().required(),
 });
 
