@@ -44,7 +44,7 @@ export default function Logar() {
       loading: messages.loading,
       success: () => {
         router.push('/');
-        return 'Conta autênticada com sucesso!';
+        return 'Conta autenticada com sucesso!';
       },
     });
   }
